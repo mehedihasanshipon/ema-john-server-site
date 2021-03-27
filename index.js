@@ -17,9 +17,6 @@ app.get('/', (req, res) => {
   res.send('Hello ema-john!')
 })
 
-
-
-
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("emajohn").collection("products");
@@ -75,6 +72,6 @@ client.connect(err => {
 });
 
 
-app.listen(port, () => {
+app.listen( process.env.PORT || port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
