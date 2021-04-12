@@ -8,6 +8,7 @@ const port = 3002;
 
 app.use(cors());
 app.use(express.json());
+// app.use(express.urlencoded({ extended: false }))
 
 // console.log(process.env.DB_PASS);
 
@@ -36,9 +37,12 @@ client.connect(err => {
 
   // Send data to ui
   app.get('/products',(req,res)=>{
-    collection.find({})
+    const search = req.query.search;
+    // console.log(search);
+    collection.find({name: {$regex: search}})
     .toArray((err,documents)=>{
       res.send(documents);
+      // console.log(err);
     })
   })
   // Load single data
